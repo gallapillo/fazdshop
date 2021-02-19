@@ -1,0 +1,38 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+    <nav aria-label="breadcrumb" class="mt-3">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'base' %}">Главная</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ product.category.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.title }}</li>
+          </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-4 mt-4">
+            <img src="{{ product.image.url }}" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <h3>{{ product.title }}</h3>
+            <p>Цена: {{ product.price }} ₽</p>
+            <p>Описание: {{ product.description }}</p>
+            <a href="{% url 'add_to_cart' ct_model=ct_model slug=product.slug  %}"><button class="btn btn-success">Добавить в корзину</button></a>
+        </div>
+        <p class="mt-4">Характеристики: </p>
+        {% if product.category.slug == "console" %}
+            {% include 'store/console_specification.html' %}
+        {% elif product.category.slug == "smartphone" %}
+            {% include 'store/smartphone_specification.html' %}
+        {% elif product.category.slug == 'notebook'%}
+            {% include 'store/notebook_specification.html' %}
+        {% elif product.category.slug == 'ps3game' %}
+            {% include 'store/Ps3game_specification.html' %}
+        {% elif product.category.slug == 'ps4game' %}
+            {% include 'store/Ps3game_specification.html' %}
+        {% elif product.category.slug == 'graphicscard' %}
+            {% include 'store/graphicscard_specification.html' %}
+        {% endif %}
+    </div>
+
+
+{% endblock content %}
